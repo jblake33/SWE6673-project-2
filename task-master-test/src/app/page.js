@@ -1,7 +1,23 @@
 "use client"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef } from "react";
+import { GetAllUsers } from "./api/database";
 
 export default function Home() {
+    const [userString, setUserString] = useState('');
+    const handleGetUsers = async (e) => {
+        GetAllUsers().then(function(value) {
+            //success
+            console.log(value);
+            for (let k = 0; k < value.length; k = k + 1) {
+                setUserString(userString + value[k].id + " " + value[k].fname + " " + value[k].lname + " " + value[k].email + "\n");
+            }
+        },
+        function(error) {
+            //failure
+            console.log("Error occurred with GetAllUsers ... o.O");
+        })
+    }
+
     const [Tasks, SetTasks] = useState([]);
 
     async function getTasks() {
@@ -47,6 +63,9 @@ export default function Home() {
                     })}
                 </div>
             </div>
+            <p>All users</p>
+            <button onClick={handleGetUsers}>Refresh</button>
+            {userString}
         </main>
     )
 }

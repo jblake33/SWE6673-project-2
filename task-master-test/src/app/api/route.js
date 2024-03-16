@@ -4,7 +4,7 @@ import { query } from "@/lib/db";
 // Simple SELECT from Task query
 export async function GET(req, res) {
 	const tasks = await query({
-		query: "SELECT * FROM tasks",
+		query: "SELECT * FROM users",
 		values: [],
 	});
 

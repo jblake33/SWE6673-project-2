@@ -10,8 +10,10 @@ export default function Page() {
 	const [password, setPassword] = useState('')
 	const [alertMsgShow, setAlertMsgShow] = useState(false)
 	const [alertVariant, setAlertVariant] = useState("danger")
+
 	const handleLogin = async (e) => {
 		e.preventDefault();
+		
 		setAlertMsgShow(true);
 		if (!email || !password) {
 			setAlertMsgShow(true);
