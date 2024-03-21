@@ -1,66 +1,9 @@
 // src/app/register/page.js
 "use client";
 
+import { POST } from '../api/auth/register/route';
 import { Alert } from "react-bootstrap";
 import React, { useState } from 'react';
-
-// function will check if user's input email address meets the following requirements
-// - contains a @ and a period in the email domain
-// - contains text after the period in the email domain (i.e .com, .edu, etc.,)
-// - errors will occur if there is the above conditions are not met, and/or if there are additional special characters, repeating periods or @
-function emailValidationChecker(emailAddress) {
-	console.log("Submit email: " + emailAddress);
-	let regexr = "[a-z0-9_-]+(?:\\.[a-z0-9_-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
-	if (emailAddress.match(regexr)) {
-		return true;
-	}
-	let moreThanOneAt_regex = "(@).*\\1";
-	if (emailAddress.match(moreThanOneAt_regex)) {
-		throw "Invalid Email Detected.";
-	}
-	let twoDotsInARow_regex = "[.]{2,}";
-	if (emailAddress.match(twoDotsInARow_regex)) {
-		throw "Invalid Email Detected.";
-	}
-	let noTextAfterDot_regex = "[.]\\w{1,}";
-	if (emailAddress.match(noTextAfterDot_regex)) {
-		throw "Invalid Email Detected.";
-	}
-	let missingDotAfterAt_regex = "[@]\\w{1,}[.]";
-	if (emailAddress.match(missingDotAfterAt_regex)) {
-		throw "Invalid Email Detected.";
-	}
-	let missingAt_regex = "";
-	if (emailAddress.match(missingAt_regex)) {
-		throw "Invalid Email Detected.";
-	}
-	// Message can be changed if different messages are desired instead of "invalid email"
-	return false;
-}
-
-function passwordValidationChecker(password) {
-	if (password.length <= 8) {
-		throw "Password requires to have a length greater than 8";
-	}
-	let regexr = "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{9,}$";
-	if (password.match(regexr)) {
-		return true;
-	}
-	let containsNumber = "[0-9]";
-	if (!password.match(containsNumber)) {
-		throw "Password requires at least 1 number";
-	}
-	let containsSpecialChar = "!@#$%^&*";
-	if (!password.match(containsSpecialChar)) {
-		throw "Password requires at least 1 special character (e.g !@#$%^&*)";
-	}
-	return false;
-}
-
-//function will check that user input is not blank
-function filledInField(emailAddress) {
-	return emailAddress;
-}
 
 export default function Page() {
 	const [alertMsg, setAlertMsg] = useState('')	
@@ -74,12 +17,28 @@ export default function Page() {
 	const handleLogin = async (e) => {
 		e.preventDefault();
 		setAlertMsgShow(false);
-		if (email.match("^\\s*$")) {
+		// If email and password are missing
+		if ((!email || email == " ") && (!password || password == " ")) {
+			setAlertVariant("danger");
+			setAlertMsgShow(true);
+			setAlertMsg("All fields are required and cannot be empty.");
+			return;
+		}
+		// If just email is missing
+		if (!email || email == " ") {
 			setAlertVariant("danger");
 			setAlertMsgShow(true);
 			setAlertMsg("Missing Email. Please Fill Out All Fields");
 			return;
 		}
+		// If just password is missing
+		if (!password) {
+			setAlertVariant("danger");
+			setAlertMsgShow(true);
+			setAlertMsg("Missing Password. Please Fill Out All Fields");
+			return;
+		}
+		// Check for valid email and password
 		let validInfo = true;
 		try {
 			emailValidationChecker(email);
@@ -91,11 +50,25 @@ export default function Page() {
 			setAlertMsgShow(true);
 			setAlertMsg(exc);
 		}
+		// If info is valid
 		if (validInfo) {
-			// TODO: Check if info already exists in DB
-			setAlertVariant("success");
-			setAlertMsgShow(true);
-			setAlertMsg("Registration Success");
+			let registerReq = {
+				first_name: fname,
+				last_name: lname,
+				email: email,
+				password: password,
+			}
+			let response = await POST( registerReq );
+			if (response.status == 200 && response.message == "Success") {
+				setAlertVariant("success");
+				setAlertMsgShow(true);
+				setAlertMsg("Registration Success");
+			}
+			else {
+				setAlertVariant("danger");
+				setAlertMsgShow(true);
+				setAlertMsg(response.message);
+			}
 		}
 	};
 
@@ -127,4 +100,56 @@ export default function Page() {
 			<p><a href="/login">Login</a></p>
 		</main>
 	);
+}
+
+// function will check if user's input email address meets the following requirements
+// - contains a @ and a period in the email domain
+// - contains text after the period in the email domain (i.e .com, .edu, etc.,)
+// - errors will occur if there is the above conditions are not met, and/or if there are additional special characters, repeating periods or @
+function emailValidationChecker(emailAddress) {
+	let regexr = "[a-z0-9_-]+(?:\\.[a-z0-9_-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+	if (emailAddress.match(regexr)) {
+		return true;
+	}
+	let moreThanOneAt_regex = "(@).*\\1";
+	if (emailAddress.match(moreThanOneAt_regex)) {
+		throw "Invalid Email Detected.";
+	}
+	let twoDotsInARow_regex = "[.]{2,}";
+	if (emailAddress.match(twoDotsInARow_regex)) {
+		throw "Invalid Email Detected.";
+	}
+	let noTextAfterDot_regex = "[.]\\w{1,}";
+	if (emailAddress.match(noTextAfterDot_regex)) {
+		throw "Invalid Email Detected.";
+	}
+	let missingDotAfterAt_regex = "[@]\\w{1,}[.]";
+	if (emailAddress.match(missingDotAfterAt_regex)) {
+		throw "Invalid Email Detected.";
+	}
+	let missingAt_regex = "";
+	if (emailAddress.match(missingAt_regex)) {
+		throw "Invalid Email Detected.";
+	}
+	// Message can be changed if different messages are desired instead of "invalid email"
+	return false;
+}
+
+function passwordValidationChecker(password) {
+	let containsSpecialChar = "[!@#$%^&*]";
+	if (!password.match(containsSpecialChar)) {
+		throw "Password requires at least 1 special character (e.g !@#$%^&*)";
+	}
+	let containsNumber = "[0-9]";
+	if (!password.match(containsNumber)) {
+		throw "Password requires at least 1 number";
+	}
+	if (password.length <= 8) {
+		throw "Password requires to have a length greater than 8";
+	}
+	let regexr = "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{9,}$";
+	if (password.match(regexr)) {
+		return true;
+	}
+	return false;
 }

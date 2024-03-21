@@ -23,7 +23,7 @@ describe("Password validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, "John");
 		await user.type(lname, "Doe");
@@ -47,7 +47,7 @@ describe("Password validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, "John");
 		await user.type(lname, "Doe");
@@ -69,7 +69,7 @@ describe("Password validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, "John");
 		await user.type(lname, "Doe");
@@ -93,11 +93,11 @@ describe("Password validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, "John");
 		await user.type(lname, "Doe");
-		await user.type(email, "JohnDoe123@gmail.com");
+		await user.type(email, "JohnDoe5123@gmail.com");
 		await user.type(password, "password123!");
 		await fireEvent.click(button);
 
@@ -117,7 +117,7 @@ describe("Email validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, "John");
 		await user.type(lname, "Doe");
@@ -139,7 +139,7 @@ describe("Email validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, "John");
 		await user.type(lname, "Doe");
@@ -161,7 +161,7 @@ describe("Email validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, "John");
 		await user.type(lname, "Doe");
@@ -183,7 +183,7 @@ describe("Email validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, "John");
 		await user.type(lname, "Doe");
@@ -205,7 +205,7 @@ describe("Email validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, "John");
 		await user.type(lname, "Doe");
@@ -227,7 +227,7 @@ describe("Email validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, "John");
 		await user.type(lname, "Doe");
@@ -248,7 +248,7 @@ describe("Email validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, "John");
 		await user.type(lname, "Doe");
@@ -272,11 +272,11 @@ describe("Email validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, "John");
 		await user.type(lname, "Doe");
-		await user.type(email, "JohnDoe123@gmailcom"); // all conditions have been met!
+		await user.type(email, "JohnDoe123@gmail.com"); // all conditions have been met!
 		await user.type(password, "password123!");
 		await fireEvent.click(button);
 
@@ -294,11 +294,11 @@ describe("Email validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, "John");
 		await user.type(lname, "Doe");
-		await user.type(email, "JohnDoe1234@gmailcom"); // all conditions have been met!
+		await user.type(email, "JohnDoe1234@gmail.com"); // all conditions have been met!
 		await user.type(password, "password123!");
 		await fireEvent.click(button);
 
@@ -318,7 +318,7 @@ describe("Registration validation", () => {
 		const lname = screen.getByLabelText("Last Name");
 		const email = screen.getByLabelText("Email");
 		const password = screen.getByLabelText("Password");
-		const button = screen.getByText("Login");
+		const button = screen.getByText("Register");
 
 		await user.type(fname, " ");
 		await user.type(lname, " ");

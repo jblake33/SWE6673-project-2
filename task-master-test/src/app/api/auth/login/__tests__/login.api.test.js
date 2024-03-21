@@ -7,7 +7,7 @@ import { POST } from "@/app/api/auth/login/route";
 describe("Test Login API responses", () => {
 	test("Invalidate login wrong email", async () => {
 		const req = {
-			email: "JohnDough123@gmail.com",
+			email: "JohnDough1281@gmail.com",
 			password: "password123",
 		};
 
